@@ -9,18 +9,18 @@
 1. เข้า xampp กด start Apache และ start MySQL
 2. เข้า phpMyAdmin สำหรับสร้างฐานข้อมูล หรือ คลิก http://localhost/phpmyadmin/
 3. เข้า เข้าที่ import หรือ คลิก http://localhost/phpmyadmin/server_import.php
-4. กดเลือก แล้วให้เข้าไปที่โฟรเดอร์ queue-database/mydb.sql
+4. กดเลือก แล้วให้เข้าไปที่โฟรเดอร์ concrete-database/mydb.sql
 5. กดตกลง
 
 #ขั้นตอนการรัน backend หรือ api
-1. เข้า cmd พิม cd ./queue-api หรือตำแหน่งไฟล์ queue-api
+1. เข้า cmd พิม cd ./concrete-api หรือตำแหน่งไฟล์ concrete-api
 2. พิม yarn สำหรับลง node_modules 
 3. พิม yarn start สำหรับ รันโปรแกรม
 4. รันไว้ห้ามปิด
 *** รัน api ที่ port 5000
 
-#ขั้นตอนการรันแอพ queue
+#ขั้นตอนการรันแอพ concrete
   - เนื่องจาก api อยู่ใน localhost ไม่สามารถออกเครื่องนอกได้เราจำเป็นที่จะต้องแก้ SERVER_API ทุกครั้งที่มีการเปลี่ยน network 
 1. เปิดใหมดนักพัฒนาในโทรศัพท์
-2. เปิด Android Studio เปิดโปรเจค queue-app แล้วเข้า build.gradle แก้ ip address http://10.0.2.2:5000/api เป็น ip address ของ network ตัวเอง
+2. เปิด Android Studio เปิดโปรเจค concrete-app แล้วเข้า build.gradle แก้ ip address http://10.0.2.2:5000/api เป็น ip address ของ network ตัวเอง
 3. เสียสายโทสับเข้ากับคอมแล้ว build ลงโทรศัพท์

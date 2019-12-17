@@ -34,7 +34,6 @@ let checkToken = (req, res, next) => {
 const setupRoutes = function (app) {
   app.use(`/${conf.apiName}/login`, require('./api/login/login.controller'))
   app.use(`/${conf.apiName}/register`, require('./api/register/register.controller'))
-  app.use(`/${conf.apiName}/queues`, checkToken, require('./api/queues/queues.controller'))
 }
 
 const invalidRoute = (app) => {

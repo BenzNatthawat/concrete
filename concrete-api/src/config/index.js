@@ -15,7 +15,7 @@ const conf = {
       name: pjson.name,
       version: pjson.version,
     },
-    port: process.env.AUTHENAPP_PORT || 3000,
+    port: process.env.AUTHENAPP_PORT || 5000,
     webDomain: process.env.AUTHENAPP_DOMAIN || 'localhost',
     secretKey: process.env.SECRETKEY || 'demo_secret_key',
     expiresIn: '24hr',

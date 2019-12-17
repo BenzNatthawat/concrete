@@ -18,6 +18,7 @@ setup(app)
 const startApp = function () {
   app.listen(config.port, () => {
     log.info(`Application:: ${config.app.name} v.${config.app.version} running on port ${config.port}`)
+    console.log(`start http://localhost:${config.port}/${config.apiName}`)
   })
 }
 
