@@ -19,7 +19,7 @@ let checkToken = (req, res, next) => {
           message: 'Token is not valid'
         })
       } else {
-        req.decoded = decoded
+        req.decoded = decoded.username
         next()
       }
     })
@@ -35,6 +35,7 @@ const setupRoutes = function (app) {
   app.use(`/${conf.apiName}/login`, require('./api/login/login.controller'))
   app.use(`/${conf.apiName}/register`, require('./api/register/register.controller'))
   app.use(`/${conf.apiName}/orders`, checkToken, require('./api/orders/orders.controller'))
+  app.use(`/${conf.apiName}/items`, checkToken, require('./api/items/items.controller'))
 }
 
 const invalidRoute = (app) => {
