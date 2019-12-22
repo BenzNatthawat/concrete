@@ -46,6 +46,8 @@ public class OrdersActivity extends AppCompatActivity {
             objDataResult = new JSONObject(orders);
             jsonArray = objDataResult.getJSONArray("results");
 
+            System.out.println("objDataResult");
+            System.out.println(objDataResult);
             for (int i = 0; i < jsonArray.length(); i++) {
                 orderObject = jsonArray.getJSONObject(i);
                 String pattern = "MM-dd-yyyy";
