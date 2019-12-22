@@ -12,7 +12,14 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        def SERVER_URL = "SERVER_URL"
+        def ip = "\"http://192.168.0.107:5000/api\""
+        debug {
+            buildConfigField "String", SERVER_URL, ip
+        }
+
         release {
+            buildConfigField "String", SERVER_URL, ip
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -26,4 +33,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 }
