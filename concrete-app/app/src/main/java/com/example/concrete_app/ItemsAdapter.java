@@ -9,31 +9,33 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class OrdersAdapter extends ArrayAdapter<Orders> {
+public class ItemsAdapter extends ArrayAdapter<Items> {
     static class ViewHolder {
-        TextView orderId;
-        TextView billOrder;
-        TextView orderDelivery;
+        TextView itemIndex;
+        TextView itemCube;
+        TextView itemPrice;
+        TextView itemInstallment;
     }
 
-    public OrdersAdapter(Context context, ArrayList<Orders> orders) {
-        super(context, R.layout.listvieworder, orders);
+    public ItemsAdapter(Context context, ArrayList<Items> items) {
+        super(context, R.layout.listviewitem, items);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        Orders orders = getItem(position);
+        Items items = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         ViewHolder viewHolder; // view lookup cache stored in tag
         if (convertView == null) {
             // If there's no view to re-use, inflate a brand new view for row
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.listvieworder, parent, false);
-            viewHolder.orderId = (TextView) convertView.findViewById(R.id.orderId);
-            viewHolder.billOrder = (TextView) convertView.findViewById(R.id.billOrder);
-            viewHolder.orderDelivery = (TextView) convertView.findViewById(R.id.orderDelivery);
+            convertView = inflater.inflate(R.layout.listviewitem, parent, false);
+            viewHolder.itemIndex = (TextView) convertView.findViewById(R.id.itemIndex);
+            viewHolder.itemCube = (TextView) convertView.findViewById(R.id.itemCube);
+            viewHolder.itemPrice = (TextView) convertView.findViewById(R.id.itemPrice);
+            viewHolder.itemInstallment = (TextView) convertView.findViewById(R.id.itemInstallment);
             // Cache the viewHolder object inside the fresh view
             convertView.setTag(viewHolder);
         } else {
@@ -43,9 +45,16 @@ public class OrdersAdapter extends ArrayAdapter<Orders> {
         // Populate the data from the data object via the viewHolder object
         // into the template view.
 
-        viewHolder.orderId.setText(orders.getIndex());
-        viewHolder.billOrder.setText(orders.getBill());
-        viewHolder.orderDelivery.setText(orders.getDelivery());
+        System.out.println("xxxxxxxxxxxxxxxx");
+        System.out.println(items.getIndex());
+        System.out.println(items.getCube());
+        System.out.println(items.getPrice());
+        System.out.println(items.getInstallment());
+
+        viewHolder.itemIndex.setText(items.getIndex());
+        viewHolder.itemCube.setText(items.getCube());
+        viewHolder.itemPrice.setText(items.getPrice());
+        viewHolder.itemInstallment.setText(items.getInstallment());
         // Return the completed view to render on screen
         return convertView;
     }

@@ -29,12 +29,12 @@ public class FromOrderActivity extends AppCompatActivity {
         editTextLong = (EditText) findViewById(R.id.editTextLong);
         btnCalculate = (Button) findViewById(R.id.calculate);
 
-        btnCalculate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                result = Double.parseDouble(editTextWide.getText().toString()) * Double.parseDouble(editTextThick.getText().toString()) * Double.parseDouble(editTextLong.getText().toString());
-            }
-        });
+//        btnCalculate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                result = Double.parseDouble(editTextWide.getText().toString()) * Double.parseDouble(editTextThick.getText().toString()) * Double.parseDouble(editTextLong.getText().toString());
+//            }
+//        });
 
     }
 
