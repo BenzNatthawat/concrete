@@ -2,7 +2,18 @@ package com.example.concrete_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -12,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button btRegisterUI;
     String result;
     JSONObject objDataResult;
+    SharedData sharedData = SharedData.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         usernameUI = (EditText) findViewById(R.id.editTextUsername);
         passwordUI = (EditText) findViewById(R.id.editTextPassword);
         nameUI = (EditText) findViewById(R.id.editTextName);
-        btRegisterUI = (Button) findViewById(R.id.register);
+        btRegisterUI = (Button) findViewById(R.id.btnRegister);
 
         btRegisterUI.setOnClickListener(new View.OnClickListener() {
             @Override

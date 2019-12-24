@@ -47,8 +47,13 @@ public class MainActivity extends AppCompatActivity {
         SharedData sharedData = SharedData.getInstance();
 
         // check that it is the SecondActivity with an OK result
-        if (requestCode == LOGIN_ACTIVITY_REQUEST_CODE || requestCode == REGISTER_ACTIVITY_REQUEST_CODE) {
+        if (requestCode == LOGIN_ACTIVITY_REQUEST_CODE || requestCode == REGISTER_ACTIVITY_REQUEST_CODE || requestCode == ORDERS_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) { // Activity.RESULT_OK
+                if(sharedData.getToken() != "") {
+                    Intent Orders = new Intent(MainActivity.this, OrdersActivity.class);
+                    startActivityForResult(Orders, ORDERS_ACTIVITY_REQUEST_CODE);
+                }
+            } else {
                 if(sharedData.getToken() != "") {
                     Intent Orders = new Intent(MainActivity.this, OrdersActivity.class);
                     startActivityForResult(Orders, ORDERS_ACTIVITY_REQUEST_CODE);

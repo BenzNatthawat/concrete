@@ -55,34 +55,11 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง", Toast.LENGTH_LONG).show();
-
                     e.printStackTrace();
                 }
             }
         });
 
-    }
-
-    // This method is called when the second activity finishes
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        SharedData sharedData = SharedData.getInstance();
-
-        // check that it is the SecondActivity with an OK result
-        if (requestCode == REGISTER_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) { // Activity.RESULT_OK
-
-                if(sharedData.getToken() != "") {
-                    Intent intent = new Intent();
-                    setResult(RESULT_OK, intent);
-                    finish();
-                } else {
-                    Toast.makeText(getApplicationContext(), "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง", Toast.LENGTH_LONG).show();
-                }
-
-            }
-        }
     }
 
     public class RequestAsync extends AsyncTask<String,String,String> {
