@@ -20,10 +20,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        Intent Orders = new Intent(MainActivity.this, OrdersActivity.class);
-        startActivityForResult(Orders, ORDERS_ACTIVITY_REQUEST_CODE);
-
         btnLoginUI = (Button) findViewById(R.id.btnLogin);
         btnRegister = (Button) findViewById(R.id.btnRegister);
 

@@ -11,7 +11,7 @@ public class SharedData {
     }
 
 
-    private String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6eyJpZCI6MSwidXNlcm5hbWUiOiJiZW56In0sImlhdCI6MTU3NzEyMTE5NCwiZXhwIjoxNTc3MjA3NTk0fQ.0ISq8H8ZMkh5iySgkokN6TdD_B_o3giYDEvvIH1P_-0";
+    private String token = "";
     private String name = "";
 
     public String getToken() {
