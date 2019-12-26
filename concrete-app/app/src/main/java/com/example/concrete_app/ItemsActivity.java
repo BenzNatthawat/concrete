@@ -1,11 +1,13 @@
 package com.example.concrete_app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,8 +44,6 @@ public class ItemsActivity extends AppCompatActivity {
             System.out.println(objDataResult);
             for (int i = 0; i < jsonArray.length(); i++) {
                 itemsObject = jsonArray.getJSONObject(i);
-                System.out.println("xxxxxxx");
-                System.out.println(itemsObject);
                 Items item = new Items( i+1, itemsObject.getString("cube"), Float.parseFloat(itemsObject.getString("price")), Float.parseFloat(itemsObject.getString("installment")) );
                 contactAdapter.add(item);
             }
@@ -53,8 +53,20 @@ public class ItemsActivity extends AppCompatActivity {
         }
 
         ItemsAdapter adapter = new ItemsAdapter(this, contactAdapter);
+
         listView = (ListView) findViewById(R.id.listViewOrders);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ExampleBottomSheetDialog bottomSheet = new ExampleBottomSheetDialog();
+                bottomSheet.show(getSupportFragmentManager(), "exampleBottomSheet");
+//                String value = listView.getItemAtPosition(position).toString();
+                System.out.println("xxxxx");
+                System.out.println(position);
+            }
+        });
     }
 
     public class RequestAsync extends AsyncTask<String,String,String> {

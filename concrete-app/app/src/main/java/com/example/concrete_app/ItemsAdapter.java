@@ -45,12 +45,6 @@ public class ItemsAdapter extends ArrayAdapter<Items> {
         // Populate the data from the data object via the viewHolder object
         // into the template view.
 
-        System.out.println("xxxxxxxxxxxxxxxx");
-        System.out.println(items.getIndex());
-        System.out.println(items.getCube());
-        System.out.println(items.getPrice());
-        System.out.println(items.getInstallment());
-
         viewHolder.itemIndex.setText(items.getIndex());
         viewHolder.itemCube.setText(items.getCube());
         viewHolder.itemPrice.setText(items.getPrice());
