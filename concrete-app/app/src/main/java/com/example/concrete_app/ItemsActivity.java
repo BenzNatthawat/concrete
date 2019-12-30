@@ -40,8 +40,6 @@ public class ItemsActivity extends AppCompatActivity {
             objDataResult = new JSONObject(items);
             jsonArray = objDataResult.getJSONArray("results");
 
-            System.out.println("objDataResult");
-            System.out.println(objDataResult);
             for (int i = 0; i < jsonArray.length(); i++) {
                 itemsObject = jsonArray.getJSONObject(i);
                 Items item = new Items( i+1, itemsObject.getString("cube"), Float.parseFloat(itemsObject.getString("price")), Float.parseFloat(itemsObject.getString("installment")) );
@@ -60,11 +58,22 @@ public class ItemsActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ExampleBottomSheetDialog bottomSheet = new ExampleBottomSheetDialog();
+                BottomDialog bottomSheet = new BottomDialog();
+
+                try {
+                    itemsObject = jsonArray.getJSONObject(position);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("cube", itemsObject.getString("cube"));
+                    bundle.putString("price", String.valueOf(Float.parseFloat(itemsObject.getString("price"))));
+
+                    bottomSheet.setArguments(bundle);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 bottomSheet.show(getSupportFragmentManager(), "exampleBottomSheet");
 //                String value = listView.getItemAtPosition(position).toString();
-                System.out.println("xxxxx");
-                System.out.println(position);
+
             }
         });
     }
