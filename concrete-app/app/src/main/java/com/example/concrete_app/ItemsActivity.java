@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -23,12 +24,15 @@ public class ItemsActivity extends AppCompatActivity {
     ArrayList<Items> contactAdapter = new  ArrayList<Items>();
     JSONObject objDataResult, itemsObject;
     JSONArray jsonArray;
+    Button confrimSend;
+    SharedData sharedData = SharedData.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items);
 
+        confrimSend = findViewById(R.id.confrimSend);
         try {
             items = new ItemsActivity.RequestAsync().execute().get();
         } catch (ExecutionException e) {
@@ -70,12 +74,11 @@ public class ItemsActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
                 bottomSheet.show(getSupportFragmentManager(), "exampleBottomSheet");
-//                String value = listView.getItemAtPosition(position).toString();
-
             }
         });
+
+        confrimSend.setText("ยืนยันการสั่ง " + sharedData.sizeBaskets());
     }
 
     public class RequestAsync extends AsyncTask<String,String,String> {

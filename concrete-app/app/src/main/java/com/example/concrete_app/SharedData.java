@@ -1,5 +1,7 @@
 package com.example.concrete_app;
 
+import java.util.ArrayList;
+
 public class SharedData {
 
     private static SharedData instance = new SharedData();
@@ -13,6 +15,7 @@ public class SharedData {
 
     private String token = "";
     private String name = "";
+    private ArrayList<Basket> baskets;
 
     public String getToken() {
         return token;
@@ -22,4 +25,6 @@ public class SharedData {
     }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
+    public void addBaskets(Basket item) { this.baskets.add(item); }
+    public int sizeBaskets() { return this.baskets.size(); }
 }

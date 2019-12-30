@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -15,37 +16,56 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 public class BottomDialog extends BottomSheetDialogFragment {
 
     TextView nameItem, priceTotal;
+    Button buttonAddId, buttonReduceId, sendId;
+    EditText numberId;
+    int number = 1;
+    String price;
+    String cube;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.bottom_sheet_layout, container, false);
 
-        Button button1 = v.findViewById(R.id.button1);
-        Button button2 = v.findViewById(R.id.button2);
+        buttonAddId = v.findViewById(R.id.buttonAddId);
+        buttonReduceId = v.findViewById(R.id.buttonReduceId);
+        sendId = v.findViewById(R.id.sendId);
         nameItem = (TextView)  v.findViewById(R.id.itemsId);
         priceTotal = (TextView)  v.findViewById(R.id.priceTotal);
+        numberId = (EditText) v.findViewById(R.id.numberId);
 
         Bundle bundle = getArguments();
-        String cube = bundle.getString("cube");
-        String price = bundle.getString("price");
+        cube = bundle.getString("cube");
+        price = bundle.getString("price");
 
-        nameItem.setText(cube);
+        nameItem.setText(cube + " " + price);
         priceTotal.setText(price);
+        numberId.setText(""+number);
 
-        button1.setOnClickListener(new View.OnClickListener() {
+        buttonAddId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                number = number + 1;
+                numberId.setText(""+number);
+                priceTotal.setText(""+number * Float.parseFloat(price));
+            }
+        });
+        buttonReduceId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(number > 1 ) {
+                    number = number - 1;
+                    numberId.setText(""+number);
+                    priceTotal.setText(""+number * Float.parseFloat(price));
+                }
+            }
+        });
+        sendId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 dismiss();
             }
         });
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
-
         return v;
     }
 
