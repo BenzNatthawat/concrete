@@ -21,6 +21,7 @@ public class BottomDialog extends BottomSheetDialogFragment {
     int number = 1;
     String price;
     String cube;
+    String id;
 
     @Nullable
     @Override
@@ -37,6 +38,7 @@ public class BottomDialog extends BottomSheetDialogFragment {
         Bundle bundle = getArguments();
         cube = bundle.getString("cube");
         price = bundle.getString("price");
+        id = bundle.getString("id");
 
         nameItem.setText(cube + " " + price);
         priceTotal.setText(price);
@@ -45,6 +47,7 @@ public class BottomDialog extends BottomSheetDialogFragment {
         buttonAddId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                number = Integer.parseInt(numberId.getText().toString());
                 number = number + 1;
                 numberId.setText(""+number);
                 priceTotal.setText(""+number * Float.parseFloat(price));
@@ -54,6 +57,7 @@ public class BottomDialog extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 if(number > 1 ) {
+                    number = Integer.parseInt(numberId.getText().toString());
                     number = number - 1;
                     numberId.setText(""+number);
                     priceTotal.setText(""+number * Float.parseFloat(price));
@@ -63,6 +67,11 @@ public class BottomDialog extends BottomSheetDialogFragment {
         sendId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedData sharedData = SharedData.getInstance();
+                Basket order = new Basket(id, cube, number, Float.parseFloat(price) );
+                sharedData.addBaskets(order);
+
+                ((ItemsActivity) getActivity()).setResultFromFragment();
                 dismiss();
             }
         });

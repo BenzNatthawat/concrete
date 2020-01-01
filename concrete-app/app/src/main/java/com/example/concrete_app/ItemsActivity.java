@@ -1,5 +1,6 @@
 package com.example.concrete_app;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -25,7 +26,6 @@ public class ItemsActivity extends AppCompatActivity {
     JSONObject objDataResult, itemsObject;
     JSONArray jsonArray;
     Button confrimSend;
-    SharedData sharedData = SharedData.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +67,7 @@ public class ItemsActivity extends AppCompatActivity {
                 try {
                     itemsObject = jsonArray.getJSONObject(position);
                     Bundle bundle = new Bundle();
+                    bundle.putString("id", itemsObject.getString("id"));
                     bundle.putString("cube", itemsObject.getString("cube"));
                     bundle.putString("price", String.valueOf(Float.parseFloat(itemsObject.getString("price"))));
 
@@ -78,6 +79,17 @@ public class ItemsActivity extends AppCompatActivity {
             }
         });
 
+        confrimSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent confirmSend = new Intent(ItemsActivity.this, ConfirmSendActivity.class);
+                startActivity(confirmSend);
+            }
+        });
+    }
+
+    public void setResultFromFragment() {
+        SharedData sharedData = SharedData.getInstance();
         confrimSend.setText("ยืนยันการสั่ง " + sharedData.sizeBaskets());
     }
 

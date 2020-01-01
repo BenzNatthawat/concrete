@@ -15,7 +15,7 @@ public class SharedData {
 
     private String token = "";
     private String name = "";
-    private ArrayList<Basket> baskets;
+    private ArrayList<Basket> baskets = new ArrayList<Basket>();
 
     public String getToken() {
         return token;
@@ -26,5 +26,14 @@ public class SharedData {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public void addBaskets(Basket item) { this.baskets.add(item); }
-    public int sizeBaskets() { return this.baskets.size(); }
+    public int sizeBaskets() {
+        if( baskets != null ) {
+            return baskets.size();
+        } else {
+            return 0;
+        }
+    }
+    public ArrayList<Basket> getBaskets() {
+        return baskets;
+    }
 }
