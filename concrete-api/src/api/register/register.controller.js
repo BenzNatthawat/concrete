@@ -17,12 +17,15 @@ const register = async (req, res, next) => {
         await db.query(`SELECT * FROM users WHERE id = '${results.insertId}'`, async (err, results) => {
           if (!err) {
             const token = signin({ id: results[0].id, username })
-            return res.json({ success: 'register success', token, name })
+            return res.json({ success: 'register success', token, name, messageErr: err && err.sqlMessage })
           }
+          return res.json({ success: 'register failed', token, name, messageErr: err && err.sqlMessage })
         })
+        return res
       }
-      return res.json({ error: 'register failed', username, password, name })
+      return res.json({ error: 'register failed', username, password, name, messageErr: err && err.sqlMessage })
     })
+    return res
   } else {
     return res.json({ error: 'required', username, password, name })
   }
