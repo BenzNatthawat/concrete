@@ -41,14 +41,17 @@ public class ConfirmSendActivity extends AppCompatActivity {
         sendOrderId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    result = new RequestAsync(nameId.getText().toString(), dateId.getText().toString(), tel.getText().toString(), descriptionId.getText().toString(), sharedData.getBaskets()).execute().get();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                System.out.println("xxxxxxx");
+                System.out.println(sharedData.sizeBaskets());
+                if(sharedData.sizeBaskets() > 0) {
+                    try {
+                        result = new RequestAsync(nameId.getText().toString(), dateId.getText().toString(), tel.getText().toString(), descriptionId.getText().toString(), sharedData.getBaskets()).execute().get();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-                System.out.println(sharedData.getBaskets());
             }
         });
     }

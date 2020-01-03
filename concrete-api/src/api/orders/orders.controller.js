@@ -13,32 +13,29 @@ const index = async (req, res, next) => {
 }
 const store = async (req, res, next) => {
   const { name, deliveryDateTime, tel, note, item } = req.body
-  
-  console.log(name, deliveryDateTime, tel, note)
-  console.log(item)
-  console.log(item[0])
-  item.forEach(async element => {
-    console.log(element)
-  })
-  return res.json("XXXX")
   const { id } = req.decoded
-  // if (deliveryDateTime && item) {
-  //   const db = await loadDB()
-  //   await db.query(`INSERT INTO orders (users_id, deliveryDateTime, status, tel, description, name) VALUES ('${id}', '${deliveryDateTime}', 'confirm', '${tel}', '${note}', '${name}')`, async (err, results) => {
-  //     if (!err) {
-  //       item.forEach(async element => {
-  //         await db.query(`INSERT INTO item (orders_id, items_id, deliverycharges_id, price, list, discount, description, quantity) VALUES (${results.insertId}, ${element.items_id || null}, ${element.deliverycharges_id || null}, ${element.price || 0}, '${element.list}', ${element.discount}, '${element.desc}', '${element.quantity}')`, () => {
-  //           if (err) { return res.json({ err }) }
-  //         })
-  //       })
-  //       return res.json({ succ: 'succ' })
-  //     } else {
-  //       return res.json({ err })
-  //     }
-  //   })
-  // } else {
-  //   return res.json({ error: 'required', deliveryDateTime })
-  // }
+  const items = JSON.parse(item)
+  if (deliveryDateTime && items.length) {
+    const db = await loadDB()
+    await db.query(`INSERT INTO orders (users_id, deliveryDateTime, status, tel, description, name) VALUES ('${id}', '${deliveryDateTime}', 'confirm', '${tel}', '${note}', '${name}')`, async (err, results) => {
+      if (!err) {
+        items.forEach(async element => {
+          await db.query(`INSERT INTO item (orders_id, items_id, deliverycharges_id, price, list, discount, description, quantity) VALUES (${results.insertId}, ${element.items_id || null}, ${element.deliverycharges_id || null}, ${element.price || 0}, '${element.list || null}', ${element.discount || 0}, '${element.desc || ''}', '${element.quantity || 0}')`, (err, results) => {
+            if (!err) {
+              console.log(results)
+              return res.json({ results })
+            }
+            return res.json({ err })
+          })
+        })
+        return res.json({ succ: 'succ' })
+      } else {
+        return res.json({ err })
+      }
+    })
+  } else {
+    return res.json({ error: 'required', deliveryDateTime })
+  }
 }
 const show = async (req, res, next) => {
   const { id } = req.params

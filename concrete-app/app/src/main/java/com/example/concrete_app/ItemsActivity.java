@@ -26,11 +26,14 @@ public class ItemsActivity extends AppCompatActivity {
     JSONObject objDataResult, itemsObject;
     JSONArray jsonArray;
     Button confrimSend;
+    SharedData sharedData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items);
+
+        sharedData = SharedData.getInstance();
 
         confrimSend = findViewById(R.id.confrimSend);
         try {
@@ -82,8 +85,13 @@ public class ItemsActivity extends AppCompatActivity {
         confrimSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent confirmSend = new Intent(ItemsActivity.this, ConfirmSendActivity.class);
-                startActivity(confirmSend);
+                System.out.println(sharedData.sizeBaskets());
+                if(sharedData.sizeBaskets() > 0) {
+                    Intent confirmSend = new Intent(ItemsActivity.this, ConfirmSendActivity.class);
+                    startActivity(confirmSend);
+                } else {
+                    Toast.makeText(getApplicationContext(), "กรุณาเลือกรายการก่อน", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
