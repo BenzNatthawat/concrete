@@ -16,6 +16,7 @@ const store = async (req, res, next) => {
   
   console.log(name, deliveryDateTime, tel, note)
   console.log(item)
+  console.log(item[0])
   item.forEach(async element => {
     console.log(element)
   })

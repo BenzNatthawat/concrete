@@ -7,6 +7,7 @@ const router = express.Router()
 
 const register = async (req, res, next) => {
   const { username, password, name } = req.body
+  console.log('register')
   if (username && password && name) {
     const db = await loadDB()
     const saltRounds = 10;
@@ -20,7 +21,7 @@ const register = async (req, res, next) => {
           }
         })
       }
-      return res.json({ error: 'register failed', username, password, name, messageErr: err.sqlMessage })
+      return res.json({ error: 'register failed', username, password, name })
     })
   } else {
     return res.json({ error: 'required', username, password, name })
