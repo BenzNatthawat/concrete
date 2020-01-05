@@ -21,11 +21,9 @@ const store = async (req, res, next) => {
       if (!err) {
         items.forEach(async element => {
           await db.query(`INSERT INTO item (orders_id, items_id, deliverycharges_id, price, list, discount, description, quantity) VALUES (${results.insertId}, ${element.items_id || null}, ${element.deliverycharges_id || null}, ${element.price || 0}, '${element.list || null}', ${element.discount || 0}, '${element.desc || ''}', '${element.quantity || 0}')`, (err, results) => {
-            if (!err) {
-              console.log(results)
-              return res.json({ results })
+            if (err) {
+              return res.json({ err })
             }
-            return res.json({ err })
           })
         })
         return res.json({ succ: 'succ' })
@@ -33,6 +31,7 @@ const store = async (req, res, next) => {
         return res.json({ err })
       }
     })
+    return res
   } else {
     return res.json({ error: 'required', deliveryDateTime })
   }

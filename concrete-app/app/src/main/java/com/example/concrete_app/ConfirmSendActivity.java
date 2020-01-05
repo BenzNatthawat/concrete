@@ -1,9 +1,11 @@
 package com.example.concrete_app;
 
+import android.app.DatePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -13,7 +15,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class ConfirmSendActivity extends AppCompatActivity {
@@ -23,6 +28,8 @@ public class ConfirmSendActivity extends AppCompatActivity {
     TextView totalPriceId;
     String result;
     SharedData sharedData;
+    JSONObject objDataResult;
+    private Calendar myCalendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,34 @@ public class ConfirmSendActivity extends AppCompatActivity {
         sendOrderId = findViewById(R.id.sendOrderId);
         totalPriceId = findViewById(R.id.totalPriceId);
 
+
+        final DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                String myFormat = "MM/dd/yy";
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                dateId.setText(sdf.format(myCalendar.getTime()));
+            }
+
+        };
+
+        dateId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(ConfirmSendActivity.this, datePickerListener, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+
+
         sendOrderId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,9 +86,18 @@ public class ConfirmSendActivity extends AppCompatActivity {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+
+                    try {
+                        objDataResult = new JSONObject(result);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("xxxxx");
+                    System.out.println(objDataResult);
                 }
             }
         });
+
     }
 
     public class RequestAsync extends AsyncTask<String,String,String> {
