@@ -25,6 +25,7 @@ public class SharedData {
     }
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
+    public void setBasketEmpty() { this.baskets =  new ArrayList<Basket>();  }
     public void addBaskets(Basket item) { this.baskets.add(item); }
     public int sizeBaskets() {
         if( baskets != null ) {

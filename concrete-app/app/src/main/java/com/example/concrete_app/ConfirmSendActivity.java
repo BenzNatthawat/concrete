@@ -1,6 +1,7 @@
 package com.example.concrete_app;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -76,8 +77,6 @@ public class ConfirmSendActivity extends AppCompatActivity {
         sendOrderId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("xxxxxxx");
-                System.out.println(sharedData.sizeBaskets());
                 if(sharedData.sizeBaskets() > 0) {
                     try {
                         result = new RequestAsync(nameId.getText().toString(), dateId.getText().toString(), tel.getText().toString(), descriptionId.getText().toString(), sharedData.getBaskets()).execute().get();
@@ -93,7 +92,16 @@ public class ConfirmSendActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     System.out.println("xxxxx");
-                    System.out.println(objDataResult);
+                    try {
+                        System.out.println(objDataResult.get("status"));
+                        if(Integer.parseInt((String) objDataResult.get("status")) == 200) {
+                            sharedData.setBasketEmpty();
+                            Intent intent = new Intent();
+                            setResult(RESULT_OK, intent);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });

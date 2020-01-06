@@ -26,7 +26,7 @@ const store = async (req, res, next) => {
             }
           })
         })
-        return res.json({ succ: 'succ' })
+        return res.json({ status: 200, succ: 'succ' })
       } else {
         return res.json({ err })
       }
