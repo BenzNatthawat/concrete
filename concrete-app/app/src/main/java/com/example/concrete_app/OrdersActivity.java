@@ -1,15 +1,14 @@
 package com.example.concrete_app;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,7 +24,7 @@ public class OrdersActivity extends AppCompatActivity {
 
     String orders;
     ListView listView;
-    ArrayList<Orders> contactAdapter = new  ArrayList<Orders>();
+    ArrayList<Orders> contactAdapter;
     JSONObject objDataResult, orderObject;
     JSONArray jsonArray;
     Button btnCreateOrders;
@@ -35,6 +34,19 @@ public class OrdersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
 
+        getOrderAndSetActivity();
+        btnCreateOrders = (Button) findViewById(R.id.btnCreateOrders);
+        btnCreateOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent CreateOrders = new Intent(OrdersActivity.this, ItemsActivity.class);
+                startActivityForResult(CreateOrders, 1);
+            }
+        });
+
+    }
+
+    public void getOrderAndSetActivity() {
         try {
             orders = new RequestAsync().execute().get();
         } catch (ExecutionException e) {
@@ -45,9 +57,8 @@ public class OrdersActivity extends AppCompatActivity {
         try {
             objDataResult = new JSONObject(orders);
             jsonArray = objDataResult.getJSONArray("results");
+            contactAdapter = new  ArrayList<Orders>();
 
-            System.out.println("objDataResult");
-            System.out.println(objDataResult);
             for (int i = 0; i < jsonArray.length(); i++) {
                 orderObject = jsonArray.getJSONObject(i);
                 String pattern = "MM-dd-yyyy";
@@ -62,18 +73,18 @@ public class OrdersActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        btnCreateOrders = (Button) findViewById(R.id.btnCreateOrders);
-        btnCreateOrders.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent CreateOrders = new Intent(OrdersActivity.this, ItemsActivity.class);
-                startActivity(CreateOrders);
-            }
-        });
 
         OrdersAdapter adapter = new OrdersAdapter(this, contactAdapter);
         listView = (ListView) findViewById(R.id.listViewOrders);
         listView.setAdapter(adapter);
+    }
+
+    // This method is called when the second activity finishes
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Toast.makeText(getApplicationContext(), "getOrderAndSetActivity", Toast.LENGTH_LONG).show();
+        getOrderAndSetActivity();
     }
 
     public class RequestAsync extends AsyncTask<String,String,String> {

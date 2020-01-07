@@ -88,12 +88,33 @@ public class ItemsActivity extends AppCompatActivity {
                 System.out.println(sharedData.sizeBaskets());
                 if(sharedData.sizeBaskets() > 0) {
                     Intent confirmSend = new Intent(ItemsActivity.this, ConfirmSendActivity.class);
-                    startActivity(confirmSend);
+                    startActivityForResult(confirmSend, 1);
                 } else {
                     Toast.makeText(getApplicationContext(), "กรุณาเลือกรายการก่อน", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
+        if(savedInstanceState != null) {
+            savedInstanceState.getInt("string_result_from_second_activity");
+            Toast.makeText(getApplicationContext(), "uuuuuuuuu" + savedInstanceState.getInt("string_result_from_second_activity"), Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    // This method is called when the second activity finishes
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // check that it is the SecondActivity with an OK result
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) { // Activity.RESULT_OK
+                sharedData.setBasketEmpty();
+                setResult(RESULT_OK, data);
+                finish();
+            }
+        }
     }
 
     public void setResultFromFragment() {

@@ -72,8 +72,6 @@ public class ConfirmSendActivity extends AppCompatActivity {
             }
         });
 
-
-
         sendOrderId.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,13 +89,11 @@ public class ConfirmSendActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("xxxxx");
                     try {
-                        System.out.println(objDataResult.get("status"));
-                        if(Integer.parseInt((String) objDataResult.get("status")) == 200) {
-                            sharedData.setBasketEmpty();
+                        if((int) objDataResult.get("status") == 200) {
                             Intent intent = new Intent();
                             setResult(RESULT_OK, intent);
+                            finish();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
