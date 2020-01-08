@@ -5,7 +5,7 @@ const router = express.Router()
 
 const index = async (req, res, next) => {
   const db = await loadDB()
-  await db.query(`SELECT orders.*, users.name FROM orders INNER JOIN users ON  orders.users_id = users.id`, (err, results) => {
+  await db.query(`SELECT orders.*, users.name, SUM(item.price) as sumPrice FROM orders INNER JOIN users ON  orders.users_id = users.id INNER JOIN item ON orders.id = item.orders_id GROUP BY item.orders_id`, (err, results) => {
     if (!err) {
       return res.json({ method: 'index', results: results })
     } else { return res.json(err) }

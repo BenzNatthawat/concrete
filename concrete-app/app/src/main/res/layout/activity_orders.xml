@@ -59,6 +59,14 @@
             android:layout_weight="2"
             android:text="วันที่ส่ง"
             android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_weight="2"
+            android:text="ราคา"
+            android:textAlignment="center" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,7 @@ public class OrdersAdapter extends ArrayAdapter<Orders> {
         TextView orderId;
         TextView billOrder;
         TextView orderDelivery;
+        TextView sumPrice;
     }
 
     public OrdersAdapter(Context context, ArrayList<Orders> orders) {
@@ -34,6 +35,7 @@ public class OrdersAdapter extends ArrayAdapter<Orders> {
             viewHolder.orderId = (TextView) convertView.findViewById(R.id.orderId);
             viewHolder.billOrder = (TextView) convertView.findViewById(R.id.billOrder);
             viewHolder.orderDelivery = (TextView) convertView.findViewById(R.id.orderDelivery);
+            viewHolder.sumPrice = (TextView) convertView.findViewById(R.id.sumPrice);
             // Cache the viewHolder object inside the fresh view
             convertView.setTag(viewHolder);
         } else {
@@ -46,6 +48,7 @@ public class OrdersAdapter extends ArrayAdapter<Orders> {
         viewHolder.orderId.setText(orders.getIndex());
         viewHolder.billOrder.setText(orders.getBill());
         viewHolder.orderDelivery.setText(orders.getDelivery());
+        viewHolder.sumPrice.setText(""+orders.getSumPrice());
         // Return the completed view to render on screen
         return convertView;
     }
