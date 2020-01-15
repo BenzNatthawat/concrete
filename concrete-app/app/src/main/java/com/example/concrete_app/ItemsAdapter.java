@@ -33,9 +33,9 @@ public class ItemsAdapter extends ArrayAdapter<Items> {
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.listviewitem, parent, false);
             viewHolder.itemIndex = (TextView) convertView.findViewById(R.id.itemIndex);
-            viewHolder.itemCube = (TextView) convertView.findViewById(R.id.itemCube);
-            viewHolder.itemPrice = (TextView) convertView.findViewById(R.id.itemPrice);
-            viewHolder.itemInstallment = (TextView) convertView.findViewById(R.id.itemInstallment);
+            viewHolder.itemCube = (TextView) convertView.findViewById(R.id.itemName);
+            viewHolder.itemPrice = (TextView) convertView.findViewById(R.id.quantity);
+            viewHolder.itemInstallment = (TextView) convertView.findViewById(R.id.price);
             // Cache the viewHolder object inside the fresh view
             convertView.setTag(viewHolder);
         } else {

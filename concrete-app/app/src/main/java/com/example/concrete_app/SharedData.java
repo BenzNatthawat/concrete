@@ -34,6 +34,9 @@ public class SharedData {
             return 0;
         }
     }
+    public Basket getBasket(int i) {
+        return baskets.get(i);
+    }
     public ArrayList<Basket> getBaskets() {
         return baskets;
     }

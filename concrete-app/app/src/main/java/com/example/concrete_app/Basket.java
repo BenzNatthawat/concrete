@@ -12,4 +12,8 @@ public class Basket {
          this.numberItem = numberItem;
          this.price = price;
      }
+    public Float getPrice() { return price; }
+    public int getNumberItem() { return numberItem; }
+    public String getIdItem() { return idItem; }
+    public String getNameItem() { return nameItem; }
 }

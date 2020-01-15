@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_width="387dp"
-        android:layout_height="601dp"
+        android:layout_width="398dp"
+        android:layout_height="540dp"
         android:layout_marginTop="24dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,27 +98,31 @@
                 android:hint="หมายเหตุ" />
 
         </LinearLayout>
-        <ScrollView
+
+        <HorizontalScrollView
+            android:id="@+id/listViewOrders"
             android:layout_width="match_parent"
+            android:fillViewport="true"
             android:layout_height="match_parent">
+
             <ListView
                 android:id="@+id/listBasketId"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="vertical" />-->
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-            </ListView>
-        </ScrollView>
+        </HorizontalScrollView>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="405dp"
         android:layout_height="65dp"
+        android:layout_marginBottom="32dp"
         android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -147,6 +151,7 @@
 
 
         </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

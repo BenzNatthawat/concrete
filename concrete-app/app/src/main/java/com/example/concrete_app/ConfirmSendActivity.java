@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,6 +32,8 @@ public class ConfirmSendActivity extends AppCompatActivity {
     SharedData sharedData;
     JSONObject objDataResult;
     private Calendar myCalendar = Calendar.getInstance();
+    ArrayList<Basket> itemAdapter = new  ArrayList<Basket>();
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,13 @@ public class ConfirmSendActivity extends AppCompatActivity {
         sendOrderId = findViewById(R.id.sendOrderId);
         totalPriceId = findViewById(R.id.totalPriceId);
 
+        for (int i = 0; i < sharedData.sizeBaskets(); i++) {
+            Basket basket = new Basket((i+1)+"", sharedData.getBasket(i).nameItem, sharedData.getBasket(i).numberItem, sharedData.getBasket(i).price);
+            itemAdapter.add(basket);
+        }
+        listItemAdapter adapter = new listItemAdapter(this, itemAdapter);
+        listView = (ListView) findViewById(R.id.listBasketId);
+        listView.setAdapter(adapter);
 
         final DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
 

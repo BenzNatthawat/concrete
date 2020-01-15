@@ -22,7 +22,7 @@ public class ItemsActivity extends AppCompatActivity {
 
     String items;
     ListView listView;
-    ArrayList<Items> contactAdapter = new  ArrayList<Items>();
+    ArrayList<Items> itemAdapter = new  ArrayList<Items>();
     JSONObject objDataResult, itemsObject;
     JSONArray jsonArray;
     Button confrimSend;
@@ -50,14 +50,14 @@ public class ItemsActivity extends AppCompatActivity {
             for (int i = 0; i < jsonArray.length(); i++) {
                 itemsObject = jsonArray.getJSONObject(i);
                 Items item = new Items( i+1, itemsObject.getString("cube"), Float.parseFloat(itemsObject.getString("price")), Float.parseFloat(itemsObject.getString("installment")) );
-                contactAdapter.add(item);
+                itemAdapter.add(item);
             }
         } catch (JSONException e) {
             Toast.makeText(getApplicationContext(), "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 
-        ItemsAdapter adapter = new ItemsAdapter(this, contactAdapter);
+        ItemsAdapter adapter = new ItemsAdapter(this, itemAdapter);
 
         listView = (ListView) findViewById(R.id.listViewOrders);
         listView.setAdapter(adapter);
