@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#56E4C6"
     tools:context=".MainActivity">
 
     <ImageView
@@ -23,7 +24,7 @@
         android:layout_width="163dp"
         android:layout_height="59dp"
         android:layout_marginTop="24dp"
-        android:backgroundTint="#96D38D"
+        android:backgroundTint="#4CAF50"
         android:text="เข้าสู่ระบบ"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

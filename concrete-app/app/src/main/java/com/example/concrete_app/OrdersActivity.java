@@ -83,7 +83,6 @@ public class OrdersActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Toast.makeText(getApplicationContext(), "getOrderAndSetActivity", Toast.LENGTH_LONG).show();
         getOrderAndSetActivity();
     }
 

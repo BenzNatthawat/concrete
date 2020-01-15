@@ -17,6 +17,7 @@ const register = async (req, res, next) => {
         await db.query(`SELECT * FROM users WHERE id = '${results.insertId}'`, async (err, results) => {
           if (!err) {
             const token = signin({ id: results[0].id, username })
+            console.log(token)
             return res.json({ success: 'register success', token, name, messageErr: err && err.sqlMessage })
           }
           return res.json({ success: 'register failed', token, name, messageErr: err && err.sqlMessage })

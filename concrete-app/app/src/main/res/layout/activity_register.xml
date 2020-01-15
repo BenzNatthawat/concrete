@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#56E4C6"
     tools:context=".RegisterActivity">
 
     <ImageView
@@ -105,6 +106,7 @@
         android:id="@+id/btnRegister"
         android:layout_width="196dp"
         android:layout_height="57dp"
+        android:background="#4CAF50"
         android:text="สมัครสมาชิก"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
