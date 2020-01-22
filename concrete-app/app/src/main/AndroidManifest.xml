@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OrderItem"></activity>
+        <activity android:name=".OrderItemActivity"></activity>
+        <activity android:name=".OrderItem" />
         <activity android:name=".listItemAdapter" />
         <activity android:name=".ConfirmSendActivity" />
         <activity android:name=".ItemsActivity" />

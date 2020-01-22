@@ -46,7 +46,7 @@ const show = async (req, res, next) => {
       await db.query(`SELECT * FROM item WHERE orders_id = ${id}`, (err, results) => {
         if (!err) {
           order.item = [...results]
-          return res.json({ method: 'index', order: order })
+          return res.json({ method: 'index', results: order })
         } else { return res.json(err) }
       })
     } else { return res.json(err) }

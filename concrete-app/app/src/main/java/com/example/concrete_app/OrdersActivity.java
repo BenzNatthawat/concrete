@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -25,7 +26,7 @@ public class OrdersActivity extends AppCompatActivity {
     String orders;
     ListView listView;
     ArrayList<Orders> contactAdapter;
-    JSONObject objDataResult, orderObject;
+    JSONObject objDataResult, orderObject, itemsObject;
     JSONArray jsonArray;
     Button btnCreateOrders;
 
@@ -77,6 +78,20 @@ public class OrdersActivity extends AppCompatActivity {
         OrdersAdapter adapter = new OrdersAdapter(this, contactAdapter);
         listView = (ListView) findViewById(R.id.listViewOrders);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent orderItem = new Intent(OrdersActivity.this, OrderItemActivity.class);
+                try {
+                    itemsObject = jsonArray.getJSONObject(position);
+                    orderItem.putExtra("id", itemsObject.getInt("id"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                startActivity(orderItem);
+            }
+        });
     }
 
     // This method is called when the second activity finishes
