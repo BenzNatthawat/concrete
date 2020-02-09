@@ -68,30 +68,32 @@ public class OrdersActivity extends AppCompatActivity {
                 Orders order = new Orders( i+1, orderObject.getString("id"), simpleDateFormat.format(date), orderObject.getDouble("sumPrice") );
                 contactAdapter.add(order);
             }
+
+            if(jsonArray.length() > 0) {
+                OrdersAdapter adapter = new OrdersAdapter(this, contactAdapter);
+                listView = (ListView) findViewById(R.id.listViewOrders);
+                listView.setAdapter(adapter);
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent orderItem = new Intent(OrdersActivity.this, OrderItemActivity.class);
+                        try {
+                            itemsObject = jsonArray.getJSONObject(position);
+                            orderItem.putExtra("id", itemsObject.getInt("id"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        startActivity(orderItem);
+                    }
+                });
+            }
         } catch (JSONException e) {
             Toast.makeText(getApplicationContext(), "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-        OrdersAdapter adapter = new OrdersAdapter(this, contactAdapter);
-        listView = (ListView) findViewById(R.id.listViewOrders);
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent orderItem = new Intent(OrdersActivity.this, OrderItemActivity.class);
-                try {
-                    itemsObject = jsonArray.getJSONObject(position);
-                    orderItem.putExtra("id", itemsObject.getInt("id"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                startActivity(orderItem);
-            }
-        });
     }
 
     // This method is called when the second activity finishes

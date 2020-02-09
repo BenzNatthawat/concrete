@@ -36,6 +36,22 @@ public class OrderItemActivity extends AppCompatActivity {
             orderObject = objDataResult.getJSONObject("results");
             jsonArray = orderObject.getJSONArray("item");
 
+            if(jsonArray.length() > 0) {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    try {
+                        itemsObject = jsonArray.getJSONObject(i);
+                        Basket basket = new Basket((i+1)+"", itemsObject.getString("list"), itemsObject.getInt("quantity"), itemsObject.getInt("quantity") * Float.parseFloat(itemsObject.getString("price")));
+                        itemAdapter.add(basket);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                listItemAdapter adapter = new listItemAdapter(this, itemAdapter);
+                listView = (ListView) findViewById(R.id.listViewOrders);
+                listView.setAdapter(adapter);
+            }
+
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -43,20 +59,6 @@ public class OrderItemActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        for (int i = 0; i < jsonArray.length(); i++) {
-            try {
-                itemsObject = jsonArray.getJSONObject(i);
-                Basket basket = new Basket((i+1)+"", itemsObject.getString("list"), itemsObject.getInt("quantity"), itemsObject.getInt("quantity") * Float.parseFloat(itemsObject.getString("price")));
-                itemAdapter.add(basket);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        listItemAdapter adapter = new listItemAdapter(this, itemAdapter);
-        listView = (ListView) findViewById(R.id.listViewOrders);
-        listView.setAdapter(adapter);
 
     }
 

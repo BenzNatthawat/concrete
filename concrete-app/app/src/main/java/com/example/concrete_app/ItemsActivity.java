@@ -52,35 +52,36 @@ public class ItemsActivity extends AppCompatActivity {
                 Items item = new Items( i+1, itemsObject.getString("cube"), Float.parseFloat(itemsObject.getString("price")), Float.parseFloat(itemsObject.getString("installment")) );
                 itemAdapter.add(item);
             }
+
+            if (jsonArray.length() > 0) {
+                listView = (ListView) findViewById(R.id.listViewOrders);
+                ItemsAdapter adapter = new ItemsAdapter(this, itemAdapter);
+                listView.setAdapter(adapter);
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        BottomDialog bottomSheet = new BottomDialog();
+
+                        try {
+                            itemsObject = jsonArray.getJSONObject(position);
+                            Bundle bundle = new Bundle();
+                            bundle.putString("id", itemsObject.getString("id"));
+                            bundle.putString("cube", itemsObject.getString("cube"));
+                            bundle.putString("price", String.valueOf(Float.parseFloat(itemsObject.getString("price"))));
+
+                            bottomSheet.setArguments(bundle);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        bottomSheet.show(getSupportFragmentManager(), "exampleBottomSheet");
+                    }
+                });
+            }
         } catch (JSONException e) {
             Toast.makeText(getApplicationContext(), "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
-
-        ItemsAdapter adapter = new ItemsAdapter(this, itemAdapter);
-
-        listView = (ListView) findViewById(R.id.listViewOrders);
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                BottomDialog bottomSheet = new BottomDialog();
-
-                try {
-                    itemsObject = jsonArray.getJSONObject(position);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("id", itemsObject.getString("id"));
-                    bundle.putString("cube", itemsObject.getString("cube"));
-                    bundle.putString("price", String.valueOf(Float.parseFloat(itemsObject.getString("price"))));
-
-                    bottomSheet.setArguments(bundle);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                bottomSheet.show(getSupportFragmentManager(), "exampleBottomSheet");
-            }
-        });
 
         confrimSend.setOnClickListener(new View.OnClickListener() {
             @Override

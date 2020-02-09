@@ -18,8 +18,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
@@ -53,9 +55,12 @@ public class ConfirmSendActivity extends AppCompatActivity {
             Basket basket = new Basket((i+1)+"", sharedData.getBasket(i).nameItem, sharedData.getBasket(i).numberItem, sharedData.getBasket(i).price);
             itemAdapter.add(basket);
         }
-        listItemAdapter adapter = new listItemAdapter(this, itemAdapter);
-        listView = (ListView) findViewById(R.id.listBasketId);
-        listView.setAdapter(adapter);
+
+        if(sharedData.sizeBaskets() > 0) {
+            listItemAdapter adapter = new listItemAdapter(this, itemAdapter);
+            listView = (ListView) findViewById(R.id.listBasketId);
+            listView.setAdapter(adapter);
+        }
 
         final DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
 
@@ -68,7 +73,10 @@ public class ConfirmSendActivity extends AppCompatActivity {
 
                 String myFormat = "MM/dd/yy";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-                dateId.setText(sdf.format(myCalendar.getTime()));
+
+                if(setMinDate(myCalendar)) {
+                    dateId.setText(sdf.format(myCalendar.getTime()));
+                }
             }
 
         };
@@ -81,6 +89,8 @@ public class ConfirmSendActivity extends AppCompatActivity {
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+
+
 
         sendOrderId.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +122,15 @@ public class ConfirmSendActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public Boolean setMinDate(Calendar date)
+    {
+        System.out.println(date.getTime().compareTo(new Date()));
+        if( date.getTime().compareTo(new Date()) > 0 ) {
+            return true;
+        }
+        return false;
     }
 
     public class RequestAsync extends AsyncTask<String,String,String> {
