@@ -20,7 +20,7 @@ const store = async (req, res, next) => {
     if (deliveryDateTime && items.length) {
       console.log(deliveryDateTime, items.length)
       const db = await loadDB()
-      await db.query(`INSERT INTO orders (users_id, deliveryDateTime, status, tel, description, name) VALUES ('${id}', '${deliveryDateTime}', 'confirm', '${tel}', '${note || ''}', '${name}')`, async (err, results) => {
+      await db.query(`INSERT INTO orders (users_id, deliveryDateTime, status, tel, note, name) VALUES ('${id}', '${deliveryDateTime}', 'confirm', '${tel}', '${note || ''}', '${name}')`, async (err, results) => {
         if (!err) {
           items.forEach(async element => {
             await db.query(`INSERT INTO item (orders_id, items_id, deliverycharges_id, price, list, discount, description, quantity) VALUES (${results.insertId}, ${element.items_id || null}, ${element.deliverycharges_id || null}, ${element.price || 0}, '${element.list || null}', ${element.discount || 0}, '${element.desc || ''}', '${element.quantity || 0}')`, (err, results) => {
