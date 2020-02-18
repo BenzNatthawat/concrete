@@ -25,6 +25,7 @@ const store = async (req, res, next) => {
           items.forEach(async element => {
             await db.query(`INSERT INTO item (orders_id, items_id, deliverycharges_id, price, list, discount, description, quantity) VALUES (${results.insertId}, ${element.items_id || null}, ${element.deliverycharges_id || null}, ${element.price || 0}, '${element.list || null}', ${element.discount || 0}, '${element.desc || ''}', '${element.quantity || 0}')`, (err, results) => {
               if (err) {
+                console.log(err)
                 return res.json({ err })
               }
             })
@@ -41,6 +42,7 @@ const store = async (req, res, next) => {
 
           return res.json({ status: 200, succ: 'succ' })
         } else {
+          console.log(err)
           return res.json({ err })
         }
       })
@@ -48,7 +50,7 @@ const store = async (req, res, next) => {
     } else {
       return res.json({ error: 'required', deliveryDateTime })
     }
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
 }
