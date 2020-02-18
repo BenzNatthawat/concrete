@@ -41,7 +41,6 @@ const store = async (req, res, next) => {
         return res.json({ err })
       }
     })
-    return res
   } else {
     return res.json({ error: 'required', deliveryDateTime })
   }
