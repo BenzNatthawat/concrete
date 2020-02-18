@@ -15,35 +15,41 @@ const store = async (req, res, next) => {
   const { name, deliveryDateTime, tel, note, item } = req.body
   const { id } = req.decoded
   const items = JSON.parse(item)
-  if (deliveryDateTime && items.length) {
-    const db = await loadDB()
-    await db.query(`INSERT INTO orders (users_id, deliveryDateTime, status, tel, description, name) VALUES ('${id}', '${deliveryDateTime}', 'confirm', '${tel}', '${note}', '${name}')`, async (err, results) => {
-      if (!err) {
-        items.forEach(async element => {
-          await db.query(`INSERT INTO item (orders_id, items_id, deliverycharges_id, price, list, discount, description, quantity) VALUES (${results.insertId}, ${element.items_id || null}, ${element.deliverycharges_id || null}, ${element.price || 0}, '${element.list || null}', ${element.discount || 0}, '${element.desc || ''}', '${element.quantity || 0}')`, (err, results) => {
-            if (err) {
-              return res.json({ err })
-            }
+  console.log(items)
+  try {
+    if (deliveryDateTime && items.length) {
+      console.log(deliveryDateTime, items.length)
+      const db = await loadDB()
+      await db.query(`INSERT INTO orders (users_id, deliveryDateTime, status, tel, description, name) VALUES ('${id}', '${deliveryDateTime}', 'confirm', '${tel}', '${note}', '${name}')`, async (err, results) => {
+        if (!err) {
+          items.forEach(async element => {
+            await db.query(`INSERT INTO item (orders_id, items_id, deliverycharges_id, price, list, discount, description, quantity) VALUES (${results.insertId}, ${element.items_id || null}, ${element.deliverycharges_id || null}, ${element.price || 0}, '${element.list || null}', ${element.discount || 0}, '${element.desc || ''}', '${element.quantity || 0}')`, (err, results) => {
+              if (err) {
+                return res.json({ err })
+              }
+            })
           })
-        })
 
-        let mess = {
-          'ชื่อ': name,
-          'วันที่ส่ง': deliveryDateTime,
-          'เบอร์โทร' :tel,
-          'สถานที่จัดส่ง' : note,
+          let mess = {
+            'ชื่อ': name,
+            'วันที่ส่ง': deliveryDateTime,
+            'เบอร์โทร': tel,
+            'สถานที่จัดส่ง': note,
+          }
+
+          notify(JSON.stringify(mess), next)
+
+          return res.json({ status: 200, succ: 'succ' })
+        } else {
+          return res.json({ err })
         }
-
-        notify(JSON.stringify(mess), next)
-
-        return res.json({ status: 200, succ: 'succ' })
-      } else {
-        return res.json({ err })
-      }
-    })
-    return res
-  } else {
-    return res.json({ error: 'required', deliveryDateTime })
+      })
+      return res
+    } else {
+      return res.json({ error: 'required', deliveryDateTime })
+    }
+  } catch(err) {
+    console.log(err)
   }
 }
 const show = async (req, res, next) => {
