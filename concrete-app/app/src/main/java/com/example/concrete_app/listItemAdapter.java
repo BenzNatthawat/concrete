@@ -31,7 +31,7 @@ public class listItemAdapter extends  ArrayAdapter<Basket> {
             // If there's no view to re-use, inflate a brand new view for row
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.listviewitem, parent, false);
+            convertView = inflater.inflate(R.layout.listviewlistitem, parent, false);
             viewHolder.itemIndex = (TextView) convertView.findViewById(R.id.itemIndex);
             viewHolder.itemName = (TextView) convertView.findViewById(R.id.itemName);
             viewHolder.quantity = (TextView) convertView.findViewById(R.id.quantity);
