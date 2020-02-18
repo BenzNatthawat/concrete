@@ -35,7 +35,7 @@ public class listItemAdapter extends  ArrayAdapter<Basket> {
             viewHolder.itemIndex = (TextView) convertView.findViewById(R.id.itemIndex);
             viewHolder.itemName = (TextView) convertView.findViewById(R.id.itemName);
             viewHolder.quantity = (TextView) convertView.findViewById(R.id.quantity);
-            viewHolder.price = (TextView) convertView.findViewById(R.id.price);
+//            viewHolder.price = (TextView) convertView.findViewById(R.id.price);
             // Cache the viewHolder object inside the fresh view
             convertView.setTag(viewHolder);
         } else {
@@ -48,7 +48,7 @@ public class listItemAdapter extends  ArrayAdapter<Basket> {
         viewHolder.itemIndex.setText(items.getIdItem());
         viewHolder.itemName.setText(items.getNameItem());
         viewHolder.quantity.setText(items.getNumberItem()+"");
-        viewHolder.price.setText(items.getPrice()+"");
+//        viewHolder.price.setText(items.getPrice()+"");
         // Return the completed view to render on screen
         return convertView;
     }

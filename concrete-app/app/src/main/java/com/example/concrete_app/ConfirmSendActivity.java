@@ -18,7 +18,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -57,7 +56,7 @@ public class ConfirmSendActivity extends AppCompatActivity {
         }
 
         if(sharedData.sizeBaskets() > 0) {
-            listItemAdapter adapter = new listItemAdapter(this, itemAdapter);
+            listOrdersItemAdapter adapter = new listOrdersItemAdapter(this, itemAdapter);
             listView = (ListView) findViewById(R.id.listBasketId);
             listView.setAdapter(adapter);
         }

@@ -1,6 +1,6 @@
 import express from 'express'
 import loadDB from '../../config/db'
-
+import request from 'request'
 const router = express.Router()
 
 const index = async (req, res, next) => {
@@ -26,6 +26,16 @@ const store = async (req, res, next) => {
             }
           })
         })
+
+        let mess = {
+          'ชื่อ': name,
+          'วันที่ส่ง': deliveryDateTime,
+          'เบอร์โทร' :tel,
+          'สถานที่จัดส่ง' : note,
+        }
+
+        notify(JSON.stringify(mess), next)
+
         return res.json({ status: 200, succ: 'succ' })
       } else {
         return res.json({ err })
@@ -60,6 +70,32 @@ const destroy = async (req, res, next) => {
   console.log('destroy')
   return res.json({ method: 'destroy' })
 }
+
+const notify = (message, next) => {
+  var token = 'BlHysak8GlBHVUFEaIv07azPTmQeIchJNqBrStITUlO'
+  var message = message
+
+  request({
+    method: 'POST',
+    uri: 'https://notify-api.line.me/api/notify',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    auth: {
+      'bearer': token
+    },
+    form: {
+      message: message
+    }
+  }, (err, httpResponse, body) => {
+    if (err) {
+      console.log(err);
+    } else {
+      next()
+    }
+  })
+}
+
 router.get('/', index)
   .post('/', store)
   .get('/:id', show)

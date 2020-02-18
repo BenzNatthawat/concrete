@@ -34,19 +34,18 @@
             android:layout_height="29dp"
             android:layout_weight="2"
             android:gravity="center"
-            android:text="ราคาสด"
+            android:text="จำนวน"
             android:textAlignment="center" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/price"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="29dp"-->
-<!--            android:layout_weight="2"-->
-<!--            android:gravity="center"-->
-<!--            android:hint="1"-->
-<!--            android:text="ราคาผ่อน"-->
-<!--            android:textAlignment="center" />-->
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="0dp"
+            android:layout_height="29dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:hint="1"
+            android:text="ราคา"
+            android:textAlignment="center" />
 
     </LinearLayout>
-
 </LinearLayout>
