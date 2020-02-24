@@ -7,7 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.concurrent.ExecutionException;
 
-public class OrderItem extends AppCompatActivity {
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+public class OrderItem extends AppCompatActivity  {
 
     String orders;
 

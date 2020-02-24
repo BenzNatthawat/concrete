@@ -4,11 +4,16 @@ import request from 'request'
 const router = express.Router()
 
 const index = async (req, res, next) => {
+  console.log('orders')
+  const { id } = req.decoded
   const db = await loadDB()
-  await db.query(`SELECT orders.*, users.name, SUM(item.price * item.quantity) as sumPrice FROM orders INNER JOIN users ON  orders.users_id = users.id INNER JOIN item ON orders.id = item.orders_id GROUP BY item.orders_id`, (err, results) => {
-    if (!err) {
-      return res.json({ method: 'index', results: results })
-    } else { return res.json(err) }
+  await db.query(`SELECT * FROM users WHERE id = ${id}`, async (err, results) => {
+    const role_user = results[0].role
+    await db.query(`SELECT orders.*, users.name, SUM(item.price * item.quantity) as sumPrice FROM orders INNER JOIN users ON  orders.users_id = users.id INNER JOIN item ON orders.id = item.orders_id ${role_user === 'admin' ? '' : 'WHERE users_id = ' + id} GROUP BY item.orders_id`, (err, results) => {
+      if (!err) {
+        return res.json({ method: 'index', results: results })
+      } else { return res.json(err) }
+    })
   })
 }
 const store = async (req, res, next) => {
@@ -30,8 +35,8 @@ const store = async (req, res, next) => {
         let mess = {
           'ชื่อ': name,
           'วันที่ส่ง': deliveryDateTime,
-          'เบอร์โทร' :tel,
-          'สถานที่จัดส่ง' : note,
+          'เบอร์โทร': tel,
+          'สถานที่จัดส่ง': note,
         }
 
         notify(JSON.stringify(mess), next)
@@ -62,8 +67,15 @@ const show = async (req, res, next) => {
   })
 }
 const update = async (req, res, next) => {
-  console.log('update')
-  return res.json({ method: 'update' })
+  const { status } = req.body
+  const { id } = req.params
+  const db = await loadDB()
+  await db.query(`UPDATE orders SET status = '${status}' WHERE id = ${id}`, async (err, results) => {
+    if (!err) {
+      return res.json({ results: results })
+    } else { console.log(err);return res.json(err) }
+  })
+  // return res.json({ method: 'update' })
 }
 const destroy = async (req, res, next) => {
   console.log('destroy')

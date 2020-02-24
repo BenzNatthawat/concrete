@@ -2,7 +2,12 @@ package com.example.concrete_app;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,13 +18,16 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class OrderItemActivity extends AppCompatActivity {
+public class OrderItemActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     String orders;
     ListView listView;
     ArrayList<Basket> itemAdapter = new  ArrayList<Basket>();
     JSONObject objDataResult, orderObject, itemsObject;
     JSONArray jsonArray;
+    Spinner statusUI;
+    String status;
+    Button submitUI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +35,18 @@ public class OrderItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_item);
 
         Bundle bundle = getIntent().getExtras();
-        int position = bundle.getInt("id");
+        final int position = bundle.getInt("id");
+
+        statusUI = findViewById(R.id.role);
+        submitUI = findViewById(R.id.submit);
+
+        ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this, R.array.status, android.R.layout.simple_spinner_item);
+        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        statusUI.setAdapter(adapterSpinner);
+        statusUI.setOnItemSelectedListener(this);
 
         try {
-            orders = new RequestAsync(position).execute().get();
+            orders = new RequestAsync(position, "GET").execute().get();
             objDataResult = new JSONObject(orders);
 
             orderObject = objDataResult.getJSONObject("results");
@@ -52,6 +68,19 @@ public class OrderItemActivity extends AppCompatActivity {
                 listView.setAdapter(adapter);
             }
 
+            submitUI.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        new RequestAsync(position, "POST", status).execute().get();
+                        finish();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -62,17 +91,42 @@ public class OrderItemActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String text = parent.getItemAtPosition(position).toString();
+        status = text;
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+    }
+
     public class RequestAsync extends AsyncTask<String,String,String> {
 
         int position;
-        public RequestAsync(int position) {
+        String method;
+        String status;
+        public RequestAsync(int position, String method) {
             this.position = position;
+            this.method = method;
+        }
+
+        public RequestAsync(int position, String method, String status) {
+            this.position = position;
+            this.method = method;
+            this.status = status;
         }
 
         @Override
         protected String doInBackground(String... strings) {
             try {
-                return RequestHandler.sendGet(BuildConfig.SERVER_URL + "/orders/"+position);
+                if(method.equals("POST")) {
+                    JSONObject postDataParams = new JSONObject();
+                    postDataParams.put("status", status);
+                    return RequestHandler.sendPost(BuildConfig.SERVER_URL + "/orders/" + position, postDataParams);
+                } else {
+                    return RequestHandler.sendGet(BuildConfig.SERVER_URL + "/orders/" + position);
+                }
             }
             catch(Exception e){
                 return new String("Exception: " + e.getMessage());

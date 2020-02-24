@@ -65,7 +65,7 @@ public class OrdersActivity extends AppCompatActivity {
                 String pattern = "MM-dd-yyyy";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
                 Date date = simpleDateFormat.parse(orderObject.getString("deliveryDateTime"));
-                Orders order = new Orders( i+1, orderObject.getString("id"), simpleDateFormat.format(date), orderObject.getDouble("sumPrice") );
+                Orders order = new Orders( i+1, orderObject.getString("id"), simpleDateFormat.format(date), orderObject.getDouble("sumPrice"), orderObject.getString("status") );
                 contactAdapter.add(order);
             }
 
@@ -84,7 +84,7 @@ public class OrdersActivity extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        startActivity(orderItem);
+                        startActivityForResult(orderItem, 1);
                     }
                 });
             }

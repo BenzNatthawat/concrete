@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">concrete-app</string>
+    <string name="app_name">โชคชัย</string>
+
+    <string-array name="status">
+        <item>confirm</item>
+        <item>cancel</item>
+        <item>pay</item>
+        <item>finish</item>
+        <item>shipping</item>
+    </string-array>
+
 </resources>

@@ -79,7 +79,6 @@ public class ItemsActivity extends AppCompatActivity {
                 });
             }
         } catch (JSONException e) {
-            Toast.makeText(getApplicationContext(), "ชื่อผู้ใช้งานหรือรหัสผ่านไม่ถูกต้อง", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
 
@@ -98,7 +97,7 @@ public class ItemsActivity extends AppCompatActivity {
 
         if(savedInstanceState != null) {
             savedInstanceState.getInt("string_result_from_second_activity");
-            Toast.makeText(getApplicationContext(), "uuuuuuuuu" + savedInstanceState.getInt("string_result_from_second_activity"), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "toast" + savedInstanceState.getInt("string_result_from_second_activity"), Toast.LENGTH_LONG).show();
         }
 
     }
