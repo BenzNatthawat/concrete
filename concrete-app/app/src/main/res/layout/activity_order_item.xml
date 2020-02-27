@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Spinner
-            android:id="@+id/role"
+            android:id="@+id/status"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"

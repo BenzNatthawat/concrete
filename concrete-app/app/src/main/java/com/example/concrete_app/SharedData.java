@@ -15,6 +15,7 @@ public class SharedData {
 
     private String token = "";
     private String name = "";
+    private String role = "";
     private ArrayList<Basket> baskets = new ArrayList<Basket>();
 
     public String getToken() {
@@ -23,6 +24,8 @@ public class SharedData {
     public void setToken(String token) {
         this.token = token;
     }
+    public String getRole() { return role;}
+    public void setRole(String role) { this.role = role;}
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
     public void setBasketEmpty() { this.baskets =  new ArrayList<Basket>();  }

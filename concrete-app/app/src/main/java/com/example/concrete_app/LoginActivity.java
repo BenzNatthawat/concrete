@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                     objDataResult = new JSONObject(result);
                     sharedData.setToken((String) objDataResult.get("token"));
                     sharedData.setName((String) objDataResult.get("name"));
+                    sharedData.setRole((String) objDataResult.get("role"));
                     Intent intent = new Intent();
                     setResult(RESULT_OK, intent);
                     finish();

@@ -28,6 +28,7 @@ public class OrderItemActivity extends AppCompatActivity implements AdapterView.
     Spinner statusUI;
     String status;
     Button submitUI;
+    SharedData sharedData = SharedData.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +38,18 @@ public class OrderItemActivity extends AppCompatActivity implements AdapterView.
         Bundle bundle = getIntent().getExtras();
         final int position = bundle.getInt("id");
 
-        statusUI = findViewById(R.id.role);
+        statusUI = findViewById(R.id.status);
         submitUI = findViewById(R.id.submit);
 
-        ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this, R.array.status, android.R.layout.simple_spinner_item);
-        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        statusUI.setAdapter(adapterSpinner);
-        statusUI.setOnItemSelectedListener(this);
+        if(sharedData.getRole().equals("admin")) {
+            ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this, R.array.status, android.R.layout.simple_spinner_item);
+            adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            statusUI.setAdapter(adapterSpinner);
+            statusUI.setOnItemSelectedListener(this);
+        } else {
+            statusUI.setVisibility(View.GONE);
+            submitUI.setVisibility(View.GONE);
+        }
 
         try {
             orders = new RequestAsync(position, "GET").execute().get();
