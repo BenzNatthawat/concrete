@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2020 at 05:06 AM
+-- Generation Time: Mar 16, 2020 at 08:31 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -76,7 +76,8 @@ INSERT INTO `item` (`id`, `createdAt`, `updatedAt`, `orders_id`, `items_id`, `de
 (13, '2020-01-15 16:45:08', '2020-01-15 16:45:08', 3, 1, NULL, '1950.00', 'lean', '0.00', '', 1),
 (14, '2020-01-21 16:56:26', '2020-01-21 16:56:26', 4, 3, NULL, '2050.00', 'A210', '0.00', '', 4),
 (15, '2020-02-08 17:33:27', '2020-02-08 17:33:27', 5, 3, NULL, '2050.00', 'A210', '0.00', '', 3),
-(16, '2020-02-08 17:33:27', '2020-02-08 17:33:27', 5, 5, NULL, '2150.00', 'A280', '0.00', '', 3);
+(16, '2020-02-08 17:33:27', '2020-02-08 17:33:27', 5, 5, NULL, '2150.00', 'A280', '0.00', '', 3),
+(17, '2020-02-24 09:01:44', '2020-02-24 09:01:44', 6, 4, NULL, '2100.00', 'A240', '0.00', '', 4);
 
 -- --------------------------------------------------------
 
@@ -143,11 +144,12 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `createdAt`, `updatedAt`, `users_id`, `deliveryDateTime`, `status`, `tel`, `description`, `name`) VALUES
-(1, '2020-01-14 16:40:51', '2020-01-14 16:40:51', 1, '0000-00-00 00:00:00', 'confirm', '0855555555', 'send today', 'to'),
-(2, '2020-01-15 14:46:43', '2020-01-15 14:46:43', 1, '0000-00-00 00:00:00', 'confirm', '0651654654', 'dsfsdf', 'benz'),
-(3, '2020-02-24 03:11:18', '2020-02-24 03:11:18', 3, '0000-00-00 00:00:00', 'confirm', '654651651', 'sdfasdfasdfasdf', 'rgreg'),
-(4, '2020-02-24 03:11:20', '2020-02-24 03:11:20', 3, '0000-00-00 00:00:00', 'confirm', '885455', 'ดfdgdrfgsdfgre', 'vbxvcb'),
-(5, '2020-02-08 17:33:27', '2020-02-08 17:33:27', 1, '0000-00-00 00:00:00', 'confirm', '863832852', '', 'jhgjhg');
+(1, '2020-02-24 09:01:10', '2020-02-24 09:01:10', 1, '0000-00-00 00:00:00', 'cancel', '0855555555', 'send today', 'to'),
+(2, '2020-02-24 09:01:03', '2020-02-24 09:01:03', 1, '0000-00-00 00:00:00', 'shipping', '0651654654', 'dsfsdf', 'benz'),
+(3, '2020-02-24 09:00:57', '2020-02-24 09:00:57', 3, '0000-00-00 00:00:00', 'finish', '654651651', 'sdfasdfasdfasdf', 'rgreg'),
+(4, '2020-02-24 08:58:46', '2020-02-24 08:58:46', 3, '0000-00-00 00:00:00', 'pay', '885455', 'ดfdgdrfgsdfgre', 'vbxvcb'),
+(5, '2020-02-27 06:51:17', '2020-02-27 06:51:17', 1, '0000-00-00 00:00:00', 'shipping', '863832852', '', 'jhgjhg'),
+(6, '2020-02-24 09:01:50', '2020-02-24 09:01:50', 1, '0000-00-00 00:00:00', 'pay', '555555', '', 'wswsws');
 
 -- --------------------------------------------------------
 
@@ -171,7 +173,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `name`, `status`, `role`, `createdAt`, `updatedAt`) VALUES
-(1, 'benz', '$2b$10$18dzDvK6aQy5DNrypc/tOeoq7HOLcKr/vRQPM1ztYJzZPqntsPLRq', 'benz', 1, 'admin', '2020-02-24 03:39:05', '2020-02-24 03:39:05'),
+(1, 'benz', '$2b$10$18dzDvK6aQy5DNrypc/tOeoq7HOLcKr/vRQPM1ztYJzZPqntsPLRq', 'benz', 1, 'admin', '2020-02-27 06:50:01', '2020-02-27 06:50:01'),
 (3, 'benzzz', '$2b$10$MThKHCwqqeLJg5MXB.9KJOqca/V39Cmhv2hddz5ouYD.UxaaUQ0Qu', 'benzzzzz', 1, 'user', '2020-02-24 03:21:38', '2020-02-24 03:21:38');
 
 --
@@ -240,7 +242,7 @@ ALTER TABLE `deliverycharges`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `items`
@@ -258,7 +260,7 @@ ALTER TABLE `location`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
